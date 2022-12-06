@@ -1,61 +1,101 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using System.Text;
 using TourParTour.Library;
 
+#region Déclarion des Variables Aléatoire & Personnages
 Random random = new Random();
 
-Joueur personnagePrincipale = new Joueur(200, 11);
+Joueur personnagePrincipale = new Joueur(200, 11, 100, 2);
 Ennemi bossDeCombat = new Ennemi(250, 18);
+#endregion
+
+#region Déclaration des Compétences
+var skillCollection = new List<Competence>();
+
+Competence bouleDeFeu = new Competence("Boule de Feu", 17, 25, "BDF");
+Competence lanceDeGlace = new Competence("Lance De Glace", 14, 20, "LDG");
+
+skillCollection.Add(bouleDeFeu);
+skillCollection.Add(lanceDeGlace);
+
+
+#endregion
 
 Console.WriteLine("Appuyer sur les touches après les × pour effectuer les actions");
+Thread.Sleep(500);
 
+// Tant que nos deux personnages ont de la vie, le jeu continue
 while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
 {
-    Console.Clear();
+    #region Tour du Joueur
     Console.WriteLine("┌──────────────────────────────────────────────────────────────────────────────────┐");
     Console.WriteLine("│                                  Tour du Joueur                                  │");
     Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────┘");
-    Console.WriteLine("┌────────────────────┐    ┌───────────────────────────┐");
-    Console.WriteLine($"│ Point de Vie : {(personnagePrincipale.vieJoueur*100)/200}% │    │ Point de Vie Ennemi : {(bossDeCombat.vieEnnemi * 100) / 250}% │");
-    Console.WriteLine("└────────────────────┘    └───────────────────────────┘");
+    Console.WriteLine("┌────────────────────┐      ┌────────────────────┐     ┌───────────────────────────┐");
+    Console.WriteLine($"│ Point de Vie : {(personnagePrincipale.vieJoueur*100)/200}% │      │ Mana Restant : {personnagePrincipale.manaJoueur}% │     │ Point de Vie Ennemi : {(bossDeCombat.vieEnnemi * 100) / 250}% │");
+    Console.WriteLine("└────────────────────┘      └────────────────────┘     └───────────────────────────┘");
     Console.WriteLine("→ Appuyer sur [A] pour attaquer");
-    Console.WriteLine("→ Appuyer sur [S] pour utiliser un sort de soin");
+    Console.WriteLine("→ Appuyer sur [S] pour ouvrir votre grimoire");
     Console.WriteLine("→ Appuyer sur [F] pour prendre la fuite");
 
-    string choix = Console.ReadLine();
+    // On récupère ce qui est écrit et on y convertit en majuscule
+    string choix = Console.ReadLine().ToString().ToUpper() ;
+    int degatInfligeParJoueur;
 
-    switch(choix)
+    if (choix == "A")
     {
-        case "A":
-            int degatInfligeParJoueur = personnagePrincipale.degatJoueur * random.Next(1, 4);
-            bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
-            Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-            Console.WriteLine($"Vous avez retiré {degatInfligeParJoueur} PV au Boss");
-            Thread.Sleep(2000);
-            break;
+        degatInfligeParJoueur = personnagePrincipale.degatJoueur * random.Next(1, 4);
+        bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+        Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+        Console.WriteLine($"Vous avez retiré {degatInfligeParJoueur} PV au Boss");
+        Thread.Sleep(1000);
 
-        case "S":
-            int vieGagne = personnagePrincipale.degatJoueur * random.Next(1, 3);
-            if (personnagePrincipale.vieJoueur >= 200)
-            {
-                Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-                Console.WriteLine("Vous êtes déjà au maximum de vos points de vie.");
+    } else if (choix == "S") {
+        Console.WriteLine("┌───────────────────┐");
+        Console.WriteLine("│  Liste des Sorts  │");
+        Console.WriteLine("└───────────────────┘");
+        foreach (var skill in skillCollection)
+        {
+            Console.WriteLine($"→ {skill._nomCompetence} × {skill._keyForUse}");
+        }
+        string choixSort = Console.ReadLine();
+
+        switch (choixSort) {
+            case "BDF":
+                degatInfligeParJoueur = personnagePrincipale.puissanceMagique * bouleDeFeu.degatCompetence;
+                personnagePrincipale.manaJoueur -= bouleDeFeu.manaCompetence;
+                bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
                 Thread.Sleep(2000);
-            } else {
-                personnagePrincipale.vieJoueur += vieGagne;
-                Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-                Console.WriteLine($"Vous avez récupéré {vieGagne} PV.");
+                break;
+
+            case "LDG":
+                degatInfligeParJoueur = personnagePrincipale.puissanceMagique * lanceDeGlace.degatCompetence;
+                personnagePrincipale.manaJoueur -= lanceDeGlace.manaCompetence;
+                bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
                 Thread.Sleep(2000);
-            }
-            break;
+                break;
+            default:
+                Console.WriteLine("Il semble que vous vous êtes tromper dans l'incantation de votre sort, Tour perdu!");
+                Console.WriteLine("Cliquer sur [ENTRER] pour continuer");
+                Console.ReadLine();
+                break;
+        }
 
-        case "F":
-            Console.WriteLine($"Vous prenez la fuite!");
-            Environment.Exit(0);
-            break;
+    } else if (choix == "F") {
+        Console.WriteLine($"Vous prenez la fuite!");
+        Environment.Exit(0);
 
+    } else {
+        Console.WriteLine("Vous êtes tomber avant de toucher votre cible, Tour perdu!");
+        Console.WriteLine("Cliquer sur [ENTRER] pour continuer");
+        Console.ReadLine();
     }
+    #endregion
 
+    #region Tour du Boss
     if (bossDeCombat.vieEnnemi > 0)
     {
         Console.Clear();
@@ -70,7 +110,7 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
             Console.WriteLine("Le boss a raté son coup.");
             Thread.Sleep(2000);
         } 
-        else if (degatInfligeParEnnemi == 30)
+        else if (degatInfligeParEnnemi == 18)
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine($"Le boss vous a retiré {degatInfligeParEnnemi} PV");
@@ -87,7 +127,9 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         Console.Clear();
         Console.WriteLine("Bravo! Vous avez vaincu le boss");
     }
+    #endregion
 
+    #region Défaite
     if (personnagePrincipale.vieJoueur < 0)
     {
         Console.Clear();
@@ -107,4 +149,5 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
 
         }
     }
+    #endregion
 }

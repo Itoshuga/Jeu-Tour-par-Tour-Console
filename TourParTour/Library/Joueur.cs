@@ -11,13 +11,17 @@ namespace TourParTour.Library
         #region Champs
         public int _vieJoueur;
         public int _degatJoueur;
+        public int _manaJoueur;
+        public int _puissanceMagique;
         #endregion
 
         #region Constructeur
-        public Joueur(int vieJoueur, int degatJoueur)
+        public Joueur(int vieJoueur, int degatJoueur, int manaJoueur, int puissanceMagique)
         {
             this._vieJoueur = vieJoueur;
             this._degatJoueur = degatJoueur;
+            this._manaJoueur = manaJoueur;
+            this._puissanceMagique = puissanceMagique;
         }
         #endregion
 
@@ -32,6 +36,18 @@ namespace TourParTour.Library
         {
             get { return _degatJoueur; }
             set { _degatJoueur = value; }
+        }
+
+        public int manaJoueur
+        {
+            get { return _manaJoueur; }
+            set { _manaJoueur = value; }
+        }
+
+        public int puissanceMagique
+        {
+            get { return _puissanceMagique; }
+            set { _puissanceMagique = value; }
         }
         #endregion
     }
