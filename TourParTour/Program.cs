@@ -73,24 +73,25 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         switch (choixSort) {
             case "BDF":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * bouleDeFeu.degatCompetence;
-                personnagePrincipale.manaJoueur -= bouleDeFeu.manaCompetence;
                 if (bouleDeFeu.manaCompetence > personnagePrincipale.manaJoueur)
                 {
+                    Console.WriteLine(bouleDeFeu.manaCompetence);
+                    Console.WriteLine(personnagePrincipale.manaJoueur);
                     Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-                    Console.WriteLine("Vous n'avez plus assez de mana");
+                    Console.WriteLine("Vous n'avez plus assez de mana, Tour  perdu!");
                     personnagePrincipale.manaJoueur = 0;
                 } else
                 {
                     bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
                     Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                     Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
-                } 
+                }
+                personnagePrincipale.manaJoueur -= bouleDeFeu.manaCompetence;
                 Thread.Sleep(2000);
                 break;
 
             case "LDG":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * lanceDeGlace.degatCompetence;
-                personnagePrincipale.manaJoueur -= lanceDeGlace.manaCompetence;
                 if (lanceDeGlace.manaCompetence < personnagePrincipale.manaJoueur)
                 {
                     Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
@@ -102,6 +103,7 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
                     Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                     Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
                 }
+                personnagePrincipale.manaJoueur -= lanceDeGlace.manaCompetence;
                 Thread.Sleep(2000);
                 break;
             default:
