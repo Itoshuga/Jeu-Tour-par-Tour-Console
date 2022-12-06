@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Text;
 using TourParTour.Library;
 
+// Il me reste simplement des méthodes à faire pour réduire un peu le nombre de ligne présent dans le "main"
+
 #region Déclarion des Variables Aléatoire & Personnages
 // On Génére un nombre aléatoire
 Random random = new Random();
