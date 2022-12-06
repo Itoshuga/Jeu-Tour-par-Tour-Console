@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TourParTour.Library
 {
-    public class Joueur
+    internal class Joueur
     {
         #region Champs
         public int _vieJoueur;
@@ -48,6 +49,15 @@ namespace TourParTour.Library
         {
             get { return _puissanceMagique; }
             set { _puissanceMagique = value; }
+        }
+        #endregion
+
+        #region Méthode
+        public int Attaque(Ennemi unEnnemi)
+        {
+            int vieDeEnnemi = unEnnemi.vieEnnemi - degatJoueur;
+
+            return vieDeEnnemi;
         }
         #endregion
     }

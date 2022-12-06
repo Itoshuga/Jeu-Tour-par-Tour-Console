@@ -3,14 +3,15 @@ using System.Reflection;
 using System.Text;
 using TourParTour.Library;
 
-// Il me reste simplement des méthodes à faire pour réduire un peu le nombre de ligne présent dans le "main"
+// Il me reste simplement des méthodes à faire sur certains element présent
+// plutôt que d'avoir des blocs de code copié collé.
 
 #region Déclarion des Variables Aléatoire & Personnages
 // On Génére un nombre aléatoire
 Random random = new Random();
 
 // On Créé 2 Personnages, Celui du Joueur et un Ennemi
-Joueur personnagePrincipale = new Joueur(200, 11, 100, 2);
+Joueur personnagePrincipale = new Joueur(200, 16, 100, 2);
 Ennemi bossDeCombat = new Ennemi(250, 18);
 #endregion
 
@@ -18,14 +19,12 @@ Ennemi bossDeCombat = new Ennemi(250, 18);
 // On Créé une Liste de Compétence
 var skillCollection = new List<Competence>();
 
-Competence bouleDeFeu = new Competence("Boule de Feu", 17, 25, "BDF");
-Competence lanceDeGlace = new Competence("Lance De Glace", 14, 20, "LDG");
+Competence bouleDeFeu = new Competence("Boule de Feu", 40, 35, "BDF");
+Competence lanceDeGlace = new Competence("Lance De Glace", 25, 30, "LDG");
 
 // On Ajoute nos deux sorts dans la Liste
 skillCollection.Add(bouleDeFeu);
 skillCollection.Add(lanceDeGlace);
-
-
 #endregion
 
 Console.WriteLine("Appuyer sur les touches après les × pour effectuer les actions");
@@ -52,10 +51,9 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
     // Si l'input du joueur est A, alors on attaque
     if (choix == "A")
     {
-        degatInfligeParJoueur = personnagePrincipale.degatJoueur * random.Next(1, 4);
-        bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+        bossDeCombat.vieEnnemi = personnagePrincipale.Attaque(bossDeCombat);
         Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-        Console.WriteLine($"Vous avez retiré {degatInfligeParJoueur} PV au Boss");
+        Console.WriteLine($"Vous avez retiré {personnagePrincipale.degatJoueur} PV au Boss");
         Thread.Sleep(1000);
 
     // Sinon si c'est S, on ouvre le grimoire
