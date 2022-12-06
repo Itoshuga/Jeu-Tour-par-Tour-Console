@@ -11,6 +11,7 @@ Console.WriteLine("Appuyer sur les touches après les × pour effectuer les acti
 
 while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
 {
+    Console.Clear();
     Console.WriteLine("┌──────────────────────────────────────────────────────────────────────────────────┐");
     Console.WriteLine("│                                  Tour du Joueur                                  │");
     Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────┘");
@@ -28,17 +29,23 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         case "A":
             int degatInfligeParJoueur = personnagePrincipale.degatJoueur * random.Next(1, 4);
             bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+            Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
             Console.WriteLine($"Vous avez retiré {degatInfligeParJoueur} PV au Boss");
+            Thread.Sleep(2000);
             break;
 
         case "S":
             int vieGagne = personnagePrincipale.degatJoueur * random.Next(1, 3);
             if (personnagePrincipale.vieJoueur >= 200)
             {
+                Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                 Console.WriteLine("Vous êtes déjà au maximum de vos points de vie.");
+                Thread.Sleep(2000);
             } else {
                 personnagePrincipale.vieJoueur += vieGagne;
+                Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                 Console.WriteLine($"Vous avez récupéré {vieGagne} PV.");
+                Thread.Sleep(2000);
             }
             break;
 
@@ -46,10 +53,12 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
             Console.WriteLine($"Vous prenez la fuite!");
             Environment.Exit(0);
             break;
+
     }
 
     if (bossDeCombat.vieEnnemi > 0)
     {
+        Console.Clear();
         Console.WriteLine("┌──────────────────────────────────────────────────────────────────────────────────┐");
         Console.WriteLine("│                                   Tour du Boss                                   │");
         Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────┘");
@@ -59,16 +68,19 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine("Le boss a raté son coup.");
+            Thread.Sleep(2000);
         } 
         else if (degatInfligeParEnnemi == 30)
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine($"Le boss vous a retiré {degatInfligeParEnnemi} PV");
+            Thread.Sleep(2000);
         } 
         else
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine($"Coup Critique! Vous venez de perdre {degatInfligeParEnnemi} PV");
+            Thread.Sleep(2000);
         }
     } else
     {

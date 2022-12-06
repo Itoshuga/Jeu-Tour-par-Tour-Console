@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wagas\\Documents\\Projet C#\\TourParTour\\TourParTour\\TourParTour.csproj": {}
+    "C:\\Users\\wagas\\Documents\\Projet C#\\Jeu-Tour-par-Tour-Console\\TourParTour\\TourParTour.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wagas\\Documents\\Projet C#\\TourParTour\\TourParTour\\TourParTour.csproj": {
+    "C:\\Users\\wagas\\Documents\\Projet C#\\Jeu-Tour-par-Tour-Console\\TourParTour\\TourParTour.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wagas\\Documents\\Projet C#\\TourParTour\\TourParTour\\TourParTour.csproj",
+        "projectUniqueName": "C:\\Users\\wagas\\Documents\\Projet C#\\Jeu-Tour-par-Tour-Console\\TourParTour\\TourParTour.csproj",
         "projectName": "TourParTour",
-        "projectPath": "C:\\Users\\wagas\\Documents\\Projet C#\\TourParTour\\TourParTour\\TourParTour.csproj",
+        "projectPath": "C:\\Users\\wagas\\Documents\\Projet C#\\Jeu-Tour-par-Tour-Console\\TourParTour\\TourParTour.csproj",
         "packagesPath": "C:\\Users\\wagas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wagas\\Documents\\Projet C#\\TourParTour\\TourParTour\\obj\\",
+        "outputPath": "C:\\Users\\wagas\\Documents\\Projet C#\\Jeu-Tour-par-Tour-Console\\TourParTour\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
