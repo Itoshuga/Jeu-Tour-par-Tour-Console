@@ -4,18 +4,22 @@ using System.Text;
 using TourParTour.Library;
 
 #region Déclarion des Variables Aléatoire & Personnages
+// On Génére un nombre aléatoire
 Random random = new Random();
 
+// On Créé 2 Personnages, Celui du Joueur et un Ennemi
 Joueur personnagePrincipale = new Joueur(200, 11, 100, 2);
 Ennemi bossDeCombat = new Ennemi(250, 18);
 #endregion
 
 #region Déclaration des Compétences
+// On Créé une Liste de Compétence
 var skillCollection = new List<Competence>();
 
 Competence bouleDeFeu = new Competence("Boule de Feu", 17, 25, "BDF");
 Competence lanceDeGlace = new Competence("Lance De Glace", 14, 20, "LDG");
 
+// On Ajoute nos deux sorts dans la Liste
 skillCollection.Add(bouleDeFeu);
 skillCollection.Add(lanceDeGlace);
 
@@ -43,6 +47,7 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
     string choix = Console.ReadLine().ToString().ToUpper() ;
     int degatInfligeParJoueur;
 
+    // Si l'input du joueur est A, alors on attaque
     if (choix == "A")
     {
         degatInfligeParJoueur = personnagePrincipale.degatJoueur * random.Next(1, 4);
@@ -51,10 +56,13 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         Console.WriteLine($"Vous avez retiré {degatInfligeParJoueur} PV au Boss");
         Thread.Sleep(1000);
 
+    // Sinon si c'est S, on ouvre le grimoire
     } else if (choix == "S") {
         Console.WriteLine("┌───────────────────┐");
         Console.WriteLine("│  Liste des Sorts  │");
         Console.WriteLine("└───────────────────┘");
+
+        // On parcours notre Liste de Sort
         foreach (var skill in skillCollection)
         {
             Console.WriteLine($"→ {skill._nomCompetence} × {skill._keyForUse}");
@@ -67,11 +75,13 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
                 personnagePrincipale.manaJoueur -= bouleDeFeu.manaCompetence;
                 if (bouleDeFeu.manaCompetence > personnagePrincipale.manaJoueur)
                 {
+                    Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                     Console.WriteLine("Vous n'avez plus assez de mana");
                     personnagePrincipale.manaJoueur = 0;
                 } else
                 {
                     bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                    Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                     Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
                 } 
                 Thread.Sleep(2000);
@@ -80,13 +90,15 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
             case "LDG":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * lanceDeGlace.degatCompetence;
                 personnagePrincipale.manaJoueur -= lanceDeGlace.manaCompetence;
-                if (lanceDeGlace.manaCompetence > personnagePrincipale.manaJoueur)
+                if (lanceDeGlace.manaCompetence < personnagePrincipale.manaJoueur)
                 {
-                    Console.WriteLine("Vous n'avez plus assez de mana");
+                    Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+                    Console.WriteLine("Vous n'avez plus assez de mana pour");
                     personnagePrincipale.manaJoueur = 0;
                 } else
                 {
                     bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                    Console.WriteLine("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
                     Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
                 }
                 Thread.Sleep(2000);
