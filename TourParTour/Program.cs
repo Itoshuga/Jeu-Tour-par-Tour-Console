@@ -65,16 +65,30 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
             case "BDF":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * bouleDeFeu.degatCompetence;
                 personnagePrincipale.manaJoueur -= bouleDeFeu.manaCompetence;
-                bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
-                Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
+                if (bouleDeFeu.manaCompetence > personnagePrincipale.manaJoueur)
+                {
+                    Console.WriteLine("Vous n'avez plus assez de mana");
+                    personnagePrincipale.manaJoueur = 0;
+                } else
+                {
+                    bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                    Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
+                } 
                 Thread.Sleep(2000);
                 break;
 
             case "LDG":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * lanceDeGlace.degatCompetence;
                 personnagePrincipale.manaJoueur -= lanceDeGlace.manaCompetence;
-                bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
-                Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
+                if (lanceDeGlace.manaCompetence > personnagePrincipale.manaJoueur)
+                {
+                    Console.WriteLine("Vous n'avez plus assez de mana");
+                    personnagePrincipale.manaJoueur = 0;
+                } else
+                {
+                    bossDeCombat.vieEnnemi -= degatInfligeParJoueur;
+                    Console.WriteLine($"Vous avez infligé {degatInfligeParJoueur} PV au Boss");
+                }
                 Thread.Sleep(2000);
                 break;
             default:
