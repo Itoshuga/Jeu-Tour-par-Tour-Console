@@ -69,6 +69,7 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         }
         string choixSort = Console.ReadLine();
 
+        // On fait un switch pour les diffèrents Sorts qu'on a
         switch (choixSort) {
             case "BDF":
                 degatInfligeParJoueur = personnagePrincipale.puissanceMagique * bouleDeFeu.degatCompetence;
@@ -130,18 +131,23 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
         Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────┘");
         int degatInfligeParEnnemi = bossDeCombat.degatEnnemi * random.Next(3); // 30% de Chances de Critiques ou de ne pas pouvoir Taper.
 
+        // Si c'est Dégat sont égal a 0, il rate
         if (degatInfligeParEnnemi == 0 )
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine("Le boss a raté son coup.");
             Thread.Sleep(2000);
         } 
+
+        // Sinon il tape
         else if (degatInfligeParEnnemi == 18)
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
             Console.WriteLine($"Le boss vous a retiré {degatInfligeParEnnemi} PV");
             Thread.Sleep(2000);
         } 
+
+        // Sinon il fait un coup critique
         else
         {
             personnagePrincipale.vieJoueur -= degatInfligeParEnnemi;
@@ -160,20 +166,6 @@ while (personnagePrincipale.vieJoueur > 0 && bossDeCombat.vieEnnemi > 0)
     {
         Console.Clear();
         Console.WriteLine("Le Boss vous à mis à terre...");
-        Console.WriteLine("Souhaitez-vous recommencer ?");
-        Console.WriteLine("→ Appuyer sur [Y] pour relancer une partie");
-        Console.WriteLine("→ Appuyer sur [N] pour fermer la console");
-        switch (choix)
-        {
-            case "Y":
-
-                break;
-
-            case "N":
-                Environment.Exit(0);
-                break;
-
-        }
     }
     #endregion
 }
